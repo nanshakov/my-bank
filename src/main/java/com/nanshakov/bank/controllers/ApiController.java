@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import quickfix.Message;
 import quickfix.SessionID;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class ApiController {
     }
 
     @GetMapping(value = "/history", params = {"clientId"})
-    public List history(@RequestParam(value = "clientId") SessionID clientId) {
+    public List<Message> history(@RequestParam(value = "clientId") SessionID clientId) {
         return qfService.getHistory().get(clientId);
     }
 }
