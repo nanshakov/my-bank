@@ -3,6 +3,8 @@ package com.nanshakov.bank.services.impl.qF;
 import com.nanshakov.bank.services.SimpleOrderProcessor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import quickfix.*;
 
@@ -14,10 +16,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 @Log4j2
+@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class QFServiceImpl implements Application {
 
     @Autowired
     SimpleOrderProcessor orderProcessor;
+
     private Acceptor acceptor;
     private final ConcurrentHashMap<SessionID, List<Message>> history = new ConcurrentHashMap<>();
 
