@@ -1,1 +1,1 @@
-# my-bank
+# Quickfixj and spring-boot application example
