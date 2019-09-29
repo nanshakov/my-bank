@@ -10,7 +10,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 public class BankApplication {
     public static void main(String[] args) {
         new SpringApplicationBuilder(BankApplication.class)
-                .web(WebApplicationType.NONE)
+                .web(WebApplicationType.SERVLET)
                 .run(args);
     }
 }

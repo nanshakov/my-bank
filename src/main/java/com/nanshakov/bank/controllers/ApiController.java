@@ -20,12 +20,12 @@ public class ApiController {
     @Autowired
     private QFServiceImpl qfService;
 
-    @GetMapping(value = "placeOrder", params = {"amount"})
+    @GetMapping(value = "/placeOrder", params = {"amount"})
     public Boolean placeOrder(@RequestParam(value = "amount") long amount) {
         return orderProcessor.process(new Order("", amount, OrderType.Market));
     }
 
-    @GetMapping(value = "history", params = {"clientId"})
+    @GetMapping(value = "/history", params = {"clientId"})
     public List history(@RequestParam(value = "clientId") SessionID clientId) {
         return qfService.getHistory().get(clientId);
     }
