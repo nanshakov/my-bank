@@ -1,0 +1,58 @@
+package com.nanshakov.bank.services.qF;
+
+import com.nanshakov.bank.services.SimpleOrderProcessor;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import quickfix.*;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
+@Service
+@Log4j2
+@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+public class QFServiceImpl implements Application {
+
+    @Autowired
+    private SimpleOrderProcessor orderProcessor;
+    private Acceptor acceptor;
+
+    @PostConstruct
+    private void postConstruct() throws ConfigError {
+        SessionSettings settings = new SessionSettings(QFServiceImpl.class.getResourceAsStream("/fix.properties"));
+        MessageStoreFactory storeFactory = new FileStoreFactory(settings);
+        LogFactory logFactory = new FileLogFactory(settings);
+        MessageFactory messageFactory = new DefaultMessageFactory();
+        acceptor = new SocketAcceptor(this, storeFactory, settings, logFactory, messageFactory);
+        acceptor.start();
+    }
+
+    @PreDestroy
+    private void preDestroy() {
+        acceptor.stop();
+    }
+
+    @Override
+    public void onCreate(SessionID sessionID) {
+
+    }
+
+    @Override
+    public void onLogon(SessionID sessionID) {
+        log.info("Client {} logon", sessionID);
+    }
+
+    @Override
+    public void onLogout(SessionID sessionID) {
+        log.info("Client {} logout", sessionID);
+    }
+
+    @Override
+    public void toAdmin(Message message, SessionID sessionID) {
+
+    }
+# Project exclude paths
+/target/
