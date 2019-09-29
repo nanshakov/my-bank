@@ -53,22 +53,22 @@ public class QFServiceImpl implements Application {
 
     @Override
     public void toAdmin(Message message, SessionID sessionID) {
-        getHistory().computeIfAbsent(sessionID, x -> new LinkedList<>()).add(message);
+        history.computeIfAbsent(sessionID, x -> new LinkedList<>()).add(message);
     }
 
     @Override
     public void fromAdmin(Message message, SessionID sessionID) {
-        getHistory().computeIfAbsent(sessionID, x -> new LinkedList<>()).add(message);
+        history.computeIfAbsent(sessionID, x -> new LinkedList<>()).add(message);
     }
 
     @Override
     public void toApp(Message message, SessionID sessionID) {
-        getHistory().computeIfAbsent(sessionID, x -> new LinkedList<>()).add(message);
+        history.computeIfAbsent(sessionID, x -> new LinkedList<>()).add(message);
     }
 
     @Override
     public void fromApp(Message message, SessionID sessionID) {
-        getHistory().computeIfAbsent(sessionID, x -> new LinkedList<>()).add(message);
+        history.computeIfAbsent(sessionID, x -> new LinkedList<>()).add(message);
     }
 
     public ConcurrentHashMap<SessionID, List<Message>> getHistory() {
