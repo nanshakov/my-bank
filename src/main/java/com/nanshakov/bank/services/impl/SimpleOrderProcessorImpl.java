@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 public class SimpleOrderProcessorImpl implements SimpleOrderProcessor {
     @Override
     public boolean process(Order order) {
-        return false;
+        log.info("{} order {} with amount {} was processed", order.getOrderType(), order.getOrderId(), order.getAmount());
+        return true;
     }
 }

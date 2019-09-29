@@ -8,7 +8,6 @@ import quickfix.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import java.io.FileNotFoundException;
 
 @Service
 @Log4j2
@@ -19,7 +18,7 @@ public class QFServiceImpl implements Application {
     private Acceptor acceptor;
 
     @PostConstruct
-    void postConstruct() throws FileNotFoundException, ConfigError {
+    void postConstruct() throws ConfigError {
         SessionSettings settings = new SessionSettings(QFServiceImpl.class.getResourceAsStream("/fix.properties"));
         MessageStoreFactory storeFactory = new FileStoreFactory(settings);
         LogFactory logFactory = new FileLogFactory(settings);
@@ -54,17 +53,17 @@ public class QFServiceImpl implements Application {
     }
 
     @Override
-    public void fromAdmin(Message message, SessionID sessionID) throws FieldNotFound, IncorrectDataFormat, IncorrectTagValue, RejectLogon {
+    public void fromAdmin(Message message, SessionID sessionID) {
 
     }
 
     @Override
-    public void toApp(Message message, SessionID sessionID) throws DoNotSend {
+    public void toApp(Message message, SessionID sessionID) {
 
     }
 
     @Override
-    public void fromApp(Message message, SessionID sessionID) throws FieldNotFound, IncorrectDataFormat, IncorrectTagValue, UnsupportedMessageType {
+    public void fromApp(Message message, SessionID sessionID) {
 
     }
 }
