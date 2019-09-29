@@ -1,58 +1,144 @@
-package com.nanshakov.bank.services.qF;
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
+# Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
-import com.nanshakov.bank.services.SimpleOrderProcessor;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Service;
-import quickfix.*;
+# User-specific stuff
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+# Generated files
+.idea/**/contentModel.xml
 
-@Service
-@Log4j2
-@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class QFServiceImpl implements Application {
+# Sensitive or high-churn files
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/dbnavigator.xml
 
-    @Autowired
-    private SimpleOrderProcessor orderProcessor;
-    private Acceptor acceptor;
+# Gradle
+.idea/**/gradle.xml
+.idea/**/libraries
 
-    @PostConstruct
-    private void postConstruct() throws ConfigError {
-        SessionSettings settings = new SessionSettings(QFServiceImpl.class.getResourceAsStream("/fix.properties"));
-        MessageStoreFactory storeFactory = new FileStoreFactory(settings);
-        LogFactory logFactory = new FileLogFactory(settings);
-        MessageFactory messageFactory = new DefaultMessageFactory();
-        acceptor = new SocketAcceptor(this, storeFactory, settings, logFactory, messageFactory);
-        acceptor.start();
-    }
+# Gradle and Maven with auto-import
+# When using Gradle or Maven with auto-import, you should exclude module files,
+# since they will be recreated, and may cause churn.  Uncomment if using
+# auto-import.
+# .idea/modules.xml
+# .idea/*.iml
+# .idea/modules
+# *.iml
+# *.ipr
 
-    @PreDestroy
-    private void preDestroy() {
-        acceptor.stop();
-    }
+# CMake
+cmake-build-*/
 
-    @Override
-    public void onCreate(SessionID sessionID) {
+# Mongo Explorer plugin
+.idea/**/mongoSettings.xml
 
-    }
+# File-based project format
+*.iws
 
-    @Override
-    public void onLogon(SessionID sessionID) {
-        log.info("Client {} logon", sessionID);
-    }
+# IntelliJ
+out/
 
-    @Override
-    public void onLogout(SessionID sessionID) {
-        log.info("Client {} logout", sessionID);
-    }
+# mpeltonen/sbt-idea plugin
+.idea_modules/
 
-    @Override
-    public void toAdmin(Message message, SessionID sessionID) {
+# JIRA plugin
+atlassian-ide-plugin.xml
 
-    }
-# Project exclude paths
-/target/
+# Cursive Clojure plugin
+.idea/replstate.xml
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# Editor-based Rest Client
+.idea/httpRequests
+
+# Android studio 3.1+ serialized cache file
+.idea/caches/build_file_checksums.ser
+##############################
+## Java
+##############################
+.mtj.tmp/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+
+##############################
+## Maven
+##############################
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+##############################
+## Gradle
+##############################
+bin/
+build/
+.gradle
+.gradletasknamecache
+gradle-app.setting
+!gradle-wrapper.jar
+
+##############################
+## IntelliJ
+##############################
+out/
+.idea/
+.idea_modules/
+*.iml
+*.ipr
+*.iws
+
+##############################
+## Eclipse
+##############################
+.settings/
+bin/
+tmp/
+.metadata
+.classpath
+.project
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.loadpath
+
+##############################
+## NetBeans
+##############################
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
+##############################
+## OS X
+##############################
+.DS_Store

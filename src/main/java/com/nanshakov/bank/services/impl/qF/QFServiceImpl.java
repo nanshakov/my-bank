@@ -1,6 +1,8 @@
 package com.nanshakov.bank.services.impl.qF;
 
+import com.nanshakov.bank.services.SimpleOrderProcessor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import quickfix.*;
 
@@ -12,6 +14,8 @@ import java.io.FileNotFoundException;
 @Log4j2
 public class QFServiceImpl implements Application {
 
+    @Autowired
+    SimpleOrderProcessor orderProcessor;
     private Acceptor acceptor;
 
     @PostConstruct
@@ -36,12 +40,12 @@ public class QFServiceImpl implements Application {
 
     @Override
     public void onLogon(SessionID sessionID) {
-
+        log.info("client {} is logon", sessionID);
     }
 
     @Override
     public void onLogout(SessionID sessionID) {
-
+        log.info("client {} is logout", sessionID);
     }
 
     @Override
