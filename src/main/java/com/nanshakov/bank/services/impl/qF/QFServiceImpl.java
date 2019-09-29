@@ -8,6 +8,9 @@ import quickfix.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 @Log4j2
@@ -16,6 +19,7 @@ public class QFServiceImpl implements Application {
     @Autowired
     SimpleOrderProcessor orderProcessor;
     private Acceptor acceptor;
+    private final ConcurrentHashMap<SessionID, List<Message>> history = new ConcurrentHashMap<>();
 
     @PostConstruct
     void postConstruct() throws ConfigError {
@@ -49,21 +53,25 @@ public class QFServiceImpl implements Application {
 
     @Override
     public void toAdmin(Message message, SessionID sessionID) {
-
+        getHistory().computeIfAbsent(sessionID, x -> new LinkedList<>()).add(message);
     }
 
     @Override
     public void fromAdmin(Message message, SessionID sessionID) {
-
+        getHistory().computeIfAbsent(sessionID, x -> new LinkedList<>()).add(message);
     }
 
     @Override
     public void toApp(Message message, SessionID sessionID) {
-
+        getHistory().computeIfAbsent(sessionID, x -> new LinkedList<>()).add(message);
     }
 
     @Override
     public void fromApp(Message message, SessionID sessionID) {
+        getHistory().computeIfAbsent(sessionID, x -> new LinkedList<>()).add(message);
+    }
 
+    public ConcurrentHashMap<SessionID, List<Message>> getHistory() {
+        return history;
     }
 }
