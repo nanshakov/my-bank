@@ -1,7 +1,8 @@
 package com.nanshakov.bank.services;
 
+import com.nanshakov.bank.dto.ExecutionReport;
 import com.nanshakov.bank.dto.Order;
 
 public interface SimpleOrderProcessor {
-    boolean process(Order order);
+    ExecutionReport process(Order order);
 }
