@@ -1,5 +1,6 @@
 package com.nanshakov.bank.controllers;
 
+import com.nanshakov.bank.dto.ExecutionReport;
 import com.nanshakov.bank.dto.Order;
 import com.nanshakov.bank.services.SimpleOrderProcessor;
 import com.nanshakov.bank.services.impl.qF.QFServiceImpl;
@@ -12,6 +13,7 @@ import quickfix.Message;
 import quickfix.SessionID;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ApiController {
@@ -22,8 +24,8 @@ public class ApiController {
     private QFServiceImpl qfService;
 
     @GetMapping(value = "/placeOrder", params = {"amount"})
-    public Boolean placeOrder(@RequestParam(value = "amount") long amount) {
-        return orderProcessor.process(new Order("", amount, OrderType.Market));
+    public ExecutionReport placeOrder(@RequestParam(value = "amount") Optional<Long> amount) {
+        return orderProcessor.process(new Order("", amount.orElse(100L), OrderType.Market));
     }
 
     @GetMapping(value = "/history", params = {"clientId"})
