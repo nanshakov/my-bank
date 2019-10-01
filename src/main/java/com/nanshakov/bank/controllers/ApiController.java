@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 import quickfix.Message;
 import quickfix.SessionID;
@@ -27,8 +26,8 @@ public class ApiController {
 
     //http://127.0.0.1:8080/placeOrder?amount=100
     @GetMapping(value = "/placeOrder", params = {"amount"})
-    public ExecutionReport placeOrder(@RequestParam(value = "amount") Optional<Long> amount) {
-        return orderProcessor.process(new Order("", amount.orElse(100L), OrderType.Market));
+    public ExecutionReport placeOrder(@RequestParam(value = "amount") long amount) {
+        return orderProcessor.process(new Order("", amount, OrderType.Market));
     }
 
     @GetMapping(value = "/history", params = {"clientId"})
