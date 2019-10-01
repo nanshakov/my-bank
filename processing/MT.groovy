@@ -6,7 +6,7 @@ import com.nanshakov.bank.utils.OrderType
  * @author Nikita Anshakov
  * @version 30.09.2019* @since 30.09.2019
  */
-class MIT implements BaseOrderProcessor {
+class MT implements BaseOrderProcessor {
 
     @Override
     boolean isApplying(Order order) {
